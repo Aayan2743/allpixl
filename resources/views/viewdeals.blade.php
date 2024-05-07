@@ -354,6 +354,7 @@
                                     <!--end::Table head-->
                                     <!--begin::Table body-->
                                     <tbody>
+                                        @foreach ($transactiondetails as $template)
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
@@ -399,6 +400,7 @@
                                                 </span>
                                             </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                     <!--end::Table body-->
                                 </table>

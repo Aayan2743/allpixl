@@ -93,7 +93,11 @@
                         </div>
                         @else
                         <div class="symbol symbol-40px">
-                            <img src=" {{ asset($emp->imagepath) }}" height="50px" width="50" alt="no image" />
+                            <span class="symbol-label bg-light-success">
+                                <img src=" {{ asset($emp->imagepath) }}" class="rounded" height="50px" width="50" alt="no image" />    
+                            </span>
+                            
+                          
                         </div>
                         @endif
                     </td>

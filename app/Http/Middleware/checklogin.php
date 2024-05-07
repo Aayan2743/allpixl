@@ -24,13 +24,15 @@ class checklogin
         || url('dashboard/settings')==$request->url()
         || url('dashboard/createlead')==$request->url()
         || url('dashboard/viewleads')==$request->url()
+        // || url('dashboard/viewleads/deals')==$request->url()
         
         
         
         
         )) {
           
-            return redirect('/')->with('error','Please login First...!');
+            // return redirect('/')->with('error','Please login First...!');
+            return redirect('/');
 
         }   
         return $next($request);

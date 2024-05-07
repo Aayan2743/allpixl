@@ -18,6 +18,7 @@ class whatappTemplates extends Model
         'template_name',
         'template_message',
         'companyid',
+        'apikey',
         
         
 

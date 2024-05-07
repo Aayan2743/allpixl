@@ -18,10 +18,12 @@ class postloginprevent
 
         if(Session()->has('uid') && url('/')==$request->url()) {
           
-            return redirect('dashboard')->with('error','Please login First...!');
+            // return redirect('dashboard')->with('error','Already login...!');
+            return redirect('dashboard');
 
         } else if(Session()->has('suid') && url('/superlogin')==$request->url()){
-            return redirect('super-admin/dashboard')->with('error','Please login First...!');
+            // return redirect('super-admin/dashboard')->with('error','Please login First...!');
+            return redirect('super-admin/dashboard');
         }  
         return $next($request);
     }

@@ -19,17 +19,82 @@ use App\Models\leadstage;
 use App\Models\leadsourcedata;
 use App\Models\leadactivity;
 use App\Models\mailsenddata;
+// use app\Models\whatappTemplates;
 use App\Models\folloups;
 use Session;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
+use GuzzleHttp\Client;
+// use Symfony\Component\HttpFoundation\Request;
 
 
 
 class followup extends Controller
 {
 
+
+    public function sendmessage($id,$mm){
+        
+        $getmobile=leads::where('leadid',$mm)->pluck('phone');
+
+        //  dd($getmobile[0]);
+        // $message=whatappTemplates::where('templateid',$id)->pluck('template_message');
+        $message=whatappTemplates::where('templateid',$id)->get();
+
+        $Txtmessage=$message[0]->template_message;
+        $TxtApi=$message[0]->apikey;
+        $Mobile=$getmobile[0];
+
+        //  dd($TxtApi);
+
+    
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+//   CURLOPT_URL => 'https://api.360messenger.net/sendMessage/47JC1WfbsxyTikurWK6braCWs7EjxROUyAn',
+  CURLOPT_URL => 'https://api.360messenger.net/sendMessage/'.$TxtApi,
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => array('phonenumber' => $Mobile,'text' => $Txtmessage,),
+//   CURLOPT_POSTFIELDS => array('phonenumber' => '919440161007','text' => $Txtmessage,),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+if($response === false) {
+    // Handle error here
+    $errorCode = curl_errno($curl);
+    $errorMessage = curl_error($curl);
+    echo $errorMessage;
+
+    // Handle error
+} else {
+    // Get HTTP status code
+    $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    //  echo $statusCode;
+    // echo $response;
+    if($statusCode==201){
+        echo $response;
+        return back();
+    }
+    
+    // Use $statusCode as needed
+}
+// echo $response;
+
+
+
+
+}
     public function ffff(){
         dd("sdfhsd");
     }

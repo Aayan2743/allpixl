@@ -37,6 +37,9 @@ Route::get('aaa', function () {
 
 
 
+
+
+
 // Asif code here 25-04-2024
 
 Route::get('/superadmin', function () {
@@ -164,6 +167,11 @@ Route::group(["prefix" => "/dashboard","middleware"=> ["checklogin"]], function 
     Route::post('/getprojectdatabyid',[followup::class,'getprojectdatabyid'])->name('admin.getprojectdatabyid');
     Route::post('/updatecourse',[followup::class,'updatecourse'])->name('admin.updatecourse');
     Route::post('/deletecoursebyid',[followup::class,'deletecoursebyid'])->name('admin.deletecoursebyid');
+
+
+    Route::any('/sendmesssage/{wid}/mm/{mno}',[followup::class,'sendmessage'])->name('admin.sendmessage');
+    // Route::any('/sendmesssage',[followup::class,'sendmessage'])->name('admin.sendmessage');
+
 
 
     // working below

@@ -8,6 +8,8 @@ class Whatappsettings extends Component
     use WithPagination;
     public $templatename;
     public $templatemessage;
+    public $apikey;
+    public $apikeys;
     protected $paginationTheme = 'bootstrap';
     public $editleadstageid="";
     public function updatingSearch()
@@ -20,14 +22,17 @@ class Whatappsettings extends Component
         $this->validate([
             'templatename' => 'required', // 1MB Max
             'templatemessage' => 'required', // 1MB Max
+            'apikey' => 'required', // 1MB Max
         ],
             [
              'templatename.required'=>'Template Name Required....!',   
-             'templatemessage.required'=>'Template Message Required....!'   
+             'templatemessage.required'=>'Template Message Required....!',   
+             'apikey.required'=>'Api Key Required Required....!'   
             ]);
             $createleadsourse=whatappTemplates::create([
                 'template_name'=>$this->templatename,
                 'template_message'=>$this->templatemessage,
+                'apikey'=>$this->apikey,
                 'companyid'=>session()->get('cid')
             ]);
             if($createleadsourse){
@@ -55,23 +60,28 @@ class Whatappsettings extends Component
     }
     public function update($id){
         $this->editleadstageid=$id;
-        $stagenames=whatappTemplates::select('template_name','template_message')->where('templateid',$id)->get();
+        $stagenames=whatappTemplates::select('template_name','template_message','apikey')->where('templateid',$id)->get();
         $this->templatename=$stagenames[0]->template_name;
         $this->templatemessage=$stagenames[0]->template_message;
+        // dd($stagenames[0]->apikey);
+        $this->apikey=$stagenames[0]->apikey;
         // dd($stagenames[0]->stagename);
     }
     public function update_changes($id){
         $this->validate([
             'templatename' => 'required', // 1MB Max
             'templatemessage' => 'required', // 1MB Max
+            'apikey' => 'required', // 1MB Max
         ],
             [
              'templatename.required'=>'Template Name Required....!',   
-             'templatemessage.required'=>'Template Message Required....!'   
+             'templatemessage.required'=>'Template Message Required....!',   
+             'apikey.required'=>'Api Key Required....!'   
             ]);
             $createleadsourse=whatappTemplates::where('templateid',$id)->update([
                 'template_name'=>$this->templatename,
                 'template_message'=>$this->templatemessage,
+                'apikey'=>$this->apikey,
             ]);
             $this->editleadstageid="";
             if($createleadsourse==1){
