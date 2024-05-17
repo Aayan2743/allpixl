@@ -51,11 +51,11 @@ class Dahboardviewleads extends Component
 
     public function mount(){
         // $this->owner="Hello";
-        $this->owner=session()->get('uid');
-        $getname=userlogin::where('uid',$this->owner)->get();
-       if(count($getname)>0){
-        $this->selecedname=$getname[0]->fullname;
-       }
+     $this->owner=session()->get('uid');
+    //     $getname=userlogin::where('uid',$this->owner)->get();
+    //   if(count($getname)>0){
+    //     $this->selecedname=$getname[0]->fullname;
+    //   }
         // 
     }
 

@@ -27,14 +27,6 @@
                         {{-- </div> --}}
                     </div>
                 </div>  
-                <div class="card mt-3 mb-4">
-                    <div class="card-body py-3">
-
-                        @livewire('Whatappmessage',['id' => $leadId])
-
-                    </div>
-                    </div>
-                </div>
                 <div class="col-md-6">
                     @php
                     $leadId = Request::route('id');
@@ -45,13 +37,28 @@
                   
                     @endphp
                    
-                   {{-- @livewire('ViewleadsCardDisplay',['id' => $leadId]) --}}
+              
                   
                    @livewire('ViewleadsFollowup',['id' => $leadId])
                    
                 </div>
-                
+                       
             </div>
+            <div class="row">
+                <div class="col-lg-6">
+                <div class="card mt-3 mb-4">
+                    <div class="card-body py-3">
+
+                        @livewire('Whatappmessage',['id' => $leadId])
+
+                    </div>
+                  
+                </div>
+                </div>
+            </div>
+              
+               
+         
             <!--begin::Row-->
            
             <!--end::Row-->
@@ -121,9 +128,7 @@
 
                                           
 
-                                           
-
-
+                    
 
                                             <div class="col-md-6">
                                                 <label for="dateInput" class="form-label">Project Delivery Date 
@@ -180,10 +185,13 @@
             </div>
         </div>
     </div>
+    
+    
+      
 
 
 
-    @include('popmodel.addfolloupmodelbox')
+
    
 
 
@@ -198,6 +206,7 @@
             $('#dddd').modal('hide');
             $('#changeleadstage').modal('hide');
             $('#add_follow_up').modal('hide');
+            $('#editleadss').modal('hide');
           
             let data = event.detail;
             Swal.fire({
@@ -210,7 +219,7 @@
             });
         })
     
-        </script>
+    </script>
 
 
 @endsection

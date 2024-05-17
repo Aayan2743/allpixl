@@ -341,10 +341,11 @@
                                                 <label for="name" class="form-label">Lead Owner 
                                                 </label>
                                                 <select class="form-select" aria-label="Default select example" wire:model.live="owner">
-                                                    <opdtion value="">Select Lead Owner</option>
+                                                    <option value="">Select Lead Owner</option>
                                                     @foreach ($getempdetails as $emp)
-                                                    {{-- <option value="{{$emp->uid}}" {{$emp->uid==session()->get('uid') ? "Selected" : "" }} >{{$emp->fullname}}</option> --}}
-                                                    <option value="{{$emp->uid}}">{{$emp->fullname}}</option>
+                                                <option value="{{$emp->uid}}" {{$emp->uid==session()->get('uid') ? "Selected" : "" }} >{{$emp->fullname}}</option> 
+                                                <!--<option value="{{$emp->uid}}">{{$emp->fullname}}</option> -->
+                                                    <!--<option value="{{$emp->uid}}">{{$emp->fullname}}</option>-->
                                                     @endforeach
                                                 </select>
                                                 @error('owner')

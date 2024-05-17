@@ -26,7 +26,7 @@
                                     Template Name</th>
                                 <th class="min-w-400px text-left">
                                     Message</th>
-                                <th class="min-w-100px text-left">
+                                <th class=" text-left">
                                     Api Key</th>
                                 <th class="min-w-100px text-center">
                                     Action
