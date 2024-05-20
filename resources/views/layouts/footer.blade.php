@@ -56,6 +56,89 @@
     </div>
 </div>
 
+
+
+<div class="modal fade" id="errormessage" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog mw-650px">
+        <div class="modal-content">
+            <div class="container-xxl" id="kt_content_container">
+                <div class="card-header border-0 pt-2 mt-5">
+                    <h3 class="card-title align-items-start flex-column ">
+                        <span class="card-label fw-bold fs-3 mb-1 ">Setup Incomplete
+                        </span>
+                    </h3>
+                </div>
+                <div class="card-body py-3">
+                    <div class="table-responsive" style=" width: -webkit-fill-available;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                 Your Not configuration the setting please do first
+                                  
+                                </div>
+                                
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    
+                                    <div class="col-md-12 text-end">
+                                        {{-- <button class="btn btn-primary mb-5" id="createlea">Go To Settings</button> --}}
+                                        {{-- <a href="http://localhost:8000/dashboard/settings" class="btn btn-primary mb-5" >Go To Settings</a> --}}
+                                        <a href="{{env('APP_URL')}}/dashboard/settings" class="btn btn-primary mb-5" >Go To Settings </a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="access_controller" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog mw-650px">
+        <div class="modal-content">
+            <div class="container-xxl" id="kt_content_container">
+                <div class="card-header border-0 pt-2 mt-5">
+                    <h3 class="card-title align-items-start flex-column ">
+                        <span class="card-label fw-bold fs-3 mb-1 ">Alert
+                        </span>
+                    </h3>
+                </div>
+                <div class="card-body py-3">
+                    <div class="table-responsive" style=" width: -webkit-fill-available;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                 Your Not Allowed To Do this Operations....!
+                                  
+                                </div>
+                                
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    
+                                    <div class="col-md-12 text-end">
+                                        {{-- <button class="btn btn-primary mb-5" id="createlea">Go To Settings</button> --}}
+                                        {{-- <a href="http://localhost:8000/dashboard/settings" class="btn btn-primary mb-5" >Go To Settings</a> --}}
+                                        {{-- <a href="{{env('APP_URL')}}/dashboard/settings" class="btn btn-primary mb-5" >Go To Settings </a> --}}
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div wire:ignore.self class="modal fade" id="editleads" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog mw-650px">
         <div class="modal-content">

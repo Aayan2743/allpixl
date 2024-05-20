@@ -26,11 +26,66 @@ class ViewleadsFollowup extends Component
     public $teamname;
     public $follouptype;
     public $followupnotes;
+    public $followid;
 
 
     public function cancel(){
         $this->reset(['nextfollowup','followupnotes']);
         $this->resetValidation();
+    }
+
+    public function getfollowupdata($fid){
+        //  dd($fid);
+        $this->followid=$fid;
+        $getdata=folloups::where('fid',$fid)->get();
+        // dd($getdata);
+
+
+        $this->nextfollowup=$getdata[0]->nextfollowup;
+        $this->follouptype=$getdata[0]->typeoffollowup;
+        $this->followupnotes=$getdata[0]->followupnotes;
+
+
+    }
+
+    public function updateFollowup(){
+        $this->validate([
+            'leadidno'=>'required', //ok
+            'follouptype'=>'required', //ok
+            'nextfollowup'=>'required', //ok
+            'followupnotes'=>'required', //ok
+        ],
+            [
+                'leadidno.required'=>'Lead id Required',
+                'follouptype.required'=>'Follow up type required',
+                'nextfollowup.required'=>'Next Followup required',
+                'followupnotes.required'=>'Followup notes Required',  
+             
+            
+            ]);
+
+             $updatefollowup=folloups::where('fid',$this->followid)->update([
+                'leadid'=>$this->leadidno,
+                'typeoffollowup'=>$this->follouptype,
+                'nextfollowup'=>$this->nextfollowup,
+                'customername'=>$this->customername,
+                'phone'=>$this->phones,
+                'email'=>$this->emailss,
+                'project'=>$this->project,
+                'companyname'=>$this->orginazation,
+                'followupnotes'=>$this->followupnotes,
+                'teamid'=>$this->teamid,
+                'teamnames'=>$this->teamname,
+                'companyid'=>session()->get('cid'),
+             
+             ]);
+             if($updatefollowup==1){
+                $this->dispatch('alert',
+                icon: 'success',
+                title: 'Followup Updated Successfully...!',  
+            );
+        }
+
     }
 
     public function addNewFollowup(){

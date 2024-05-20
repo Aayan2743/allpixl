@@ -207,6 +207,7 @@
             $('#changeleadstage').modal('hide');
             $('#add_follow_up').modal('hide');
             $('#editleadss').modal('hide');
+            $('#edit_follow_up').modal('hide');
           
             let data = event.detail;
             Swal.fire({

@@ -28,6 +28,8 @@ class userlogin extends Model
         'plantype',
         'expstatus',
         'reregistrationdate',
+        'edit_access',
+        'delete_access',
         
 
     ] ;

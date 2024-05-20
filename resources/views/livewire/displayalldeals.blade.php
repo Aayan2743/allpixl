@@ -62,31 +62,18 @@
                         <th>Deal Closing Date</th>
                         <th>Price</th>
                         <th>Work Status </th>
+
+                        @if(session()->get('role')==1)
                         <th style="text-align: center;">Action
                         </th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
                     @if(count($getalldeals)>0)
                     @foreach ($getalldeals as $deals)
                     <tr>
-                        <!-- <td class="align-content-center"> 
-                            {{-- <div class="symbol symbol-40px">
-                                <img src="{{asset('assets/media/Warm.png')}}"
-                                    style="    width: 25px;
-                                        height: 25px;
-                                        z-index: 9;
-                                        position: absolute;
-                                    ">
-                            </div> --}}
-                            <div class="symbol symbol-40px">
-                                <span
-                                    class="symbol-label bg-light-success">
-                                    <i class="ki-duotone ki-flask fs-2x text-success"
-                                        style="font-family: 'arial' !important;text-transform:capitalize">{{$deals->fs}}</span></i>
-                                </span>
-                            </div>
-                        </td> -->
+                       
                         <td class="align-content-center"> 
                             <a href="{{route('admin.viewdealsdata', Crypt::encryptString($deals->leadid))}}"
                                 class="text-gray-900 fw-norma  d-block fs-6"><span style="text-transform:capitalize;font-weight:800 !important;">{{$deals->customer}}</span><br>
@@ -171,6 +158,8 @@
                                 </p>
                             </div>
                         </td>
+
+                        @if(session()->get('role')==1)
                         <td class="align-content-center"> 
                             <div class="d-flex  flex-shrink-0">
                                 @if($deals->dealstatus==0)
@@ -236,6 +225,11 @@
                             </div>
                             {{--  --}}
                         </td>
+
+                        @endif
+                       
+
+
                     </tr>
                     @endforeach
                     @else

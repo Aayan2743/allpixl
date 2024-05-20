@@ -7,10 +7,10 @@
                     <div class="card-heade d-flex justify-content-between position-relative py-0"
                         style="width:-webkit-fill-available; padding:0px !importent;">
                         <ul class="nav nav-stretch nav-pills nav-pills-custom d-flex mt-3" role="tablist" style="
-    display: flex !important;
-    justify-content: space-between;
-    width: -webkit-fill-available;
-">
+                                display: flex !important;
+                                justify-content: space-between;
+                                width: -webkit-fill-available;
+                            ">
                             <li class="nav-item p-0  mx-5" role="presentation"
                                 style="align-items: center;display: flow;">
                                 <div class="d-flex">
@@ -57,15 +57,47 @@
                                         </select>
                                         @endif
 
+                                        
+                                        @if(checkservice_status())
+
                                         <a class="btn btn-sm btn-primary m-5 btn-outline" data-bs-toggle="modal"
-                                            data-bs-target="#Bulk_Upload"
-                                            style="width: -webkit-fill-available;text-wrap: nowrap;">
-                                            Bulk Upload
-                                        </a>
-                                        <a href="#" class="btn btn-sm btn-light btn-active-primary m-5"
-                                            data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends" wire:click="cancel"
-                                            style="border:1px solid black;width: -webkit-fill-available;text-wrap:nowrap;height: -webkit-fill-available;align-self: center;">
-                                            <i class="ki-duotone ki-plus fs-2"></i>Add Leads</a>
+                                        data-bs-target="#Bulk_Upload"
+                                        style="width: -webkit-fill-available;text-wrap: nowrap;">
+                                        Bulk Upload
+                                    </a>
+
+
+
+                                    <a href="#" class="btn btn-sm btn-light btn-active-primary m-5"
+                                        data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends" wire:click="cancel"
+                                        style="border:1px solid black;width: -webkit-fill-available;text-wrap:nowrap;height: -webkit-fill-available;align-self: center;">
+                                        <i class="ki-duotone ki-plus fs-2"></i>Add Leads</a>
+
+
+                                      
+                                        @else
+
+                                        <a class="btn btn-sm btn-primary m-5 btn-outline" data-bs-toggle="modal"
+                                        data-bs-target="#errormessage"
+                                        style="width: -webkit-fill-available;text-wrap: nowrap;">
+                                        Bulk Upload
+                                    </a>
+
+
+
+                                    <a href="#" class="btn btn-sm btn-light btn-active-primary m-5"
+                                        data-bs-toggle="modal" data-bs-target="#errormessage" wire:click="cancel"
+                                        style="border:1px solid black;width: -webkit-fill-available;text-wrap:nowrap;height: -webkit-fill-available;align-self: center;">
+                                        <i class="ki-duotone ki-plus fs-2"></i>Add Leads</a>
+
+                                        {{-- <a href="" data-bs-toggle="modal" data-bs-target="#errormessage">
+                                            <div class=" fs-6 fw-bold text-white text-center">Add Leads
+                                            </div>
+                                        </a> --}}
+
+                                        @endif
+
+                                      
                                     </form>
                                 </div>
                             </div>
@@ -207,63 +239,79 @@
                             </div>
                         </td>
                         <td class="align-content-center">
-                            {{-- <div class="d-flex  flex-shrink-0" style="right: 16px; ">
-                                <p class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                    <a wire:click="editLead({{$leads->leadid}})" data-bs-toggle="modal"
-                            data-bs-target="#convertdealssss" data-bs-toggle="tooltip" data-bs-placement="top"
-                            data-bs-original-title="convertdeals">
-                            <i class="ki-duotone ki-switch fs-2"><span class="path1"></span><span
-                                    class="path2"></span></i>
-                            </a>
-                            </p>
-                            <p class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                <a wire:click="editLead({{$leads->leadid}})" data-bs-toggle="modal"
-                                    data-bs-target="#editleads">
-                                    <i class="ki-duotone ki-pencil fs-2" data-bs-toggle="tooltip"
-                                        data-bs-placement="top" data-bs-original-title="editleads"><span
-                                            class="path1"></span><span class="path2"></span></i>
-                                </a>
-                            </p>
-                            <p class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
-                                <a wire:click="editLead({{$leads->leadid}})" data-bs-toggle="modal"
-                                    data-bs-target="#deleteleads">
-                                    <i class="ki-duotone ki-trash fs-2" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        data-bs-original-title="deleteleads"><span class="path1"></span><span
-                                            class="path2"></span><span class="path3"></span><span
-                                            class="path4"></span><span class="path5"></span></i>
-                                </a>
-                            </p>
-        </div> --}}
+                           
         <div class="d-flex  flex-shrink-0" style="right: 16px; ">
+
             <p class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                 <a wire:click="editLead({{$leads->leadid}})" data-bs-toggle="modal" data-bs-target="#convertdealssss">
                     <img src="{{asset('icons/Convert.png')}}" alt="image" data-bs-toggle="tooltip"
                         data-bs-placement="top" data-bs-original-title="Convert" />
                 </a>
             </p>
-            {{-- <p class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                    <a wire:click="editLead({{$leads->leadid}})" data-bs-toggle="modal"
-            data-bs-target="#convertdealssss">
-            <i class="ki-duotone ki-switch fs-2"><span class="path1"></span><span class="path2"></span></i>
-            </a>
-            </p> --}}
+            
             <p class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+
+
+                @if(checkservice_user_access(Session()->get('uid'))['edit_access']==0) 
+
+                <a wire:click="editLead({{$leads->leadid}})" data-bs-toggle="modal" data-bs-target="#access_controller">
+                    <img src="{{asset('icons/Edit.png')}}" alt="image" data-bs-toggle="tooltip" data-bs-placement="top"
+                        data-bs-original-title="Edit" />
+                   
+                </a>
+
+
+                @elseif(checkservice_user_access(Session()->get('uid'))['edit_access']==1)
+
                 <a wire:click="editLead({{$leads->leadid}})" data-bs-toggle="modal" data-bs-target="#editleads">
                     <img src="{{asset('icons/Edit.png')}}" alt="image" data-bs-toggle="tooltip" data-bs-placement="top"
                         data-bs-original-title="Edit" />
-                    {{-- <i class="ki-duotone ki-pencil fs-2"><span
-                                                class="path1"></span><span class="path2"></span></i> --}}
+                   
                 </a>
+              
+                 @endif
+
+
+                
+                
+                
+              
+
+
             </p>
+
             <p class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+
+                @if(checkservice_user_access(Session()->get('uid'))['edit_access']==0) 
+
+              
+
+                <a wire:click="editLead({{$leads->leadid}})" data-bs-toggle="modal" data-bs-target="#access_controller">
+                    <img src="{{asset('icons/delete.png')}}" alt="image" data-bs-toggle="tooltip"
+                        data-bs-placement="top" data-bs-original-title="delete" />
+                
+                </a>
+
+
+                @elseif(checkservice_user_access(Session()->get('uid'))['edit_access']==1)
+
                 <a wire:click="editLead({{$leads->leadid}})" data-bs-toggle="modal" data-bs-target="#deleteleads">
                     <img src="{{asset('icons/delete.png')}}" alt="image" data-bs-toggle="tooltip"
                         data-bs-placement="top" data-bs-original-title="delete" />
-                    {{-- <i class="ki-duotone ki-trash fs-2"><span class="path1"></span><span
-                                                class="path2"></span><span class="path3"></span><span
-                                                class="path4"></span><span class="path5"></span></i> --}}
+                
                 </a>
+              
+                 @endif
+
+
+
+                {{-- <a wire:click="editLead({{$leads->leadid}})" data-bs-toggle="modal" data-bs-target="#deleteleads">
+                    <img src="{{asset('icons/delete.png')}}" alt="image" data-bs-toggle="tooltip"
+                        data-bs-placement="top" data-bs-original-title="delete" />
+                
+                </a> --}}
             </p>
+
         </div>
         </td>
         </tr>

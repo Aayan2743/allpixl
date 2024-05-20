@@ -72,12 +72,36 @@
                         </div>
                         <div class="col-md-4">
                             <div class="d-flex flex-center w-100">
-                                <div class="mixed-widget-17-chart" data-kt-chart-color="primary" style="height: 160px">
+                                <b>Deal Stage : </b>
+                                @php
+                                    $stage=checkservice_deal_status($getleads[0]->leadid);
+                                    $stagename;
+                                    if($stage==0){
+                                        $stagename="In Progress"; 
+                                    }elseif($stage==1){
+                                        $stagename="Successfully Close"; 
+                                    }
+                                    elseif($stage==2){
+                                        $stagename="Lost"; 
+                                    }
+                                    elseif($stage==3){
+                                        $stagename="Reopen"; 
+                                    }
+
+
+                                @endphp
+                                <b> <u> {{$stagename;}} </u> </b>
+
+
+                                <div class="mixed-widget-17-char" data-kt-chart-color="primary" style="height: 160px">
+                                   
                                 </div>
                             </div>
                         </div>
                         <div class="">
                             <div class="row">
+
+                                @if(session()->get('role')==1)
                                 <div class="col-md-4 col-4">
                                     {{-- <button class="btn btn-success mb-3" style="width:-webkit-fill-available;">Call: {{$getleads[0]->phone}}</button>
                                     --}}
@@ -93,7 +117,31 @@
                                             <span class="path8"></span>
                                         </i><br>Call: {{$getleads[0]->phone}}</a>
                                 </div>
+                                @else
+                                <div class="col-md-12 col-4">
+                                    {{-- <button class="btn btn-success mb-3" style="width:-webkit-fill-available;">Call: {{$getleads[0]->phone}}</button>
+                                    --}}
+                                    <a href="tel:{{$getleads[0]->phone}}" class="btn btn-success mb-3"
+                                        style="width:-webkit-fill-available;"> <i class="ki-duotone ki-call">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                            <span class="path5"></span>
+                                            <span class="path6"></span>
+                                            <span class="path7"></span>
+                                            <span class="path8"></span>
+                                        </i><br>Call: {{$getleads[0]->phone}}</a>
+                                </div>
+
+
+                                @endif
+                               
+
+
+                                @if(session()->get('role')==1)
                                 <div class="col-md-4 col-4">
+                                    
                                     <button class="btn btn-info mb-3 getpayment" data-bs-target="#editdealsfromdeals"
                                         data-route="{{route('admin.getpaymet',$getleads[0]->leadid)}}"
                                         data-bs-toggle="modal" data-leadids="{{$getleads[0]->leadid }}"
@@ -101,6 +149,8 @@
                                             <span class="path1"></span>
                                             <span class="path2"></span>
                                         </i><br>Manage Payment </button>
+
+
                                 </div>
                                 <div class="col-md-4 col-4">
                                     <button class="btn btn-info mb-3 leadid_inside" data-bs-target="#converttodeals"
@@ -111,9 +161,23 @@
                                             <span class="path2"></span>
                                         </i><br>Edit Deals Details </button>
                                 </div>
+
+                                @endif
+                                
+
+                             
+                                @if(session()->get('role')==1)
                                 @livewire('dealclosestatus',['id'=>$getleads[0]->leadid])
+                                @endif
+
+                                
+                              
                                 {{--  --}}
                             </div>
+
+
+                            {{-- @livewire('dealstatus-ops',['id'=>$getleads[0]->leadid]); --}}
+
                         </div>
                         <div class="">
                             <hr>
@@ -2249,6 +2313,28 @@
             showConfirmButton: false,
             timer: 1500
         });
+        
+    })
+</script>
+
+
+<script>
+    window.addEventListener('alert12', (event) => {
+        // console.log(event);
+    
+        let data = event.detail;
+        Swal.fire({
+            position: 'center',
+            // icon: "success",
+            icon: data.icon,
+            title: data.title,
+            showConfirmButton: false,
+            timer: 1500,
+           
+        }).then(function(){
+   location.reload();
+});
+        
     })
 </script>
 @endsection

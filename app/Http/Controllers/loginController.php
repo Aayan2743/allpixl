@@ -8,6 +8,7 @@ use App\Models\customizedsettings;
 use App\Models\superadmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class loginController extends Controller
 {
@@ -101,7 +102,9 @@ class loginController extends Controller
         $validator = Validator::make($req->all(), [
             'companyname'=>'required', //ok
             'usermobile'=>'required|numeric|digits:10|unique:loginusers,mobile',//ok
-            'eamil'=>'required|email|unique:loginusers,email', //ok
+            // 'usermobile'=>'required|numeric|digits:10',//ok
+             'eamil'=>'required|email|unique:loginusers,email', //ok
+            // 'eamil'=>'required|email', //ok
             'password'=>'required|min:6|max:12', //ok
             
                ],
@@ -128,12 +131,16 @@ class loginController extends Controller
         }else{
 
             return response()->json(['status' => 'sendotp']);
-        }
+       }
+
+    // $this->adduser();
 
     }
 
     public function adduser(Request $req){
       
+
+
     
         $companyid = uniqid();
     
@@ -146,61 +153,91 @@ class loginController extends Controller
 
         $regendingdate = $today->addDays($demodays[0]->days);
         // dd($req->all());
-        $newuser=userlogin::insertGetId([
-            'email'=>$req->eamil,
-            'password'=>$req->password,
-            'role'=>1,
-            'mobile'=>$req->usermobile,
-            'companyname'=>$req->companyname,
-            'companyid'=>$companyid,
-            'fullname'=>$req->uname,
-            'regdate'=>now(),
-            'reregistrationdate'=>now(),
-            'regendingdate'=>$regendingdate,
-            'plantype'=>$demodays[0]->id,
+        // dd($demodays[0]->id);
+
+
+        // $newuser=userlogin::insertGetId([
+        //     'email'=>$req->eamil,
+        //     'password'=>$req->password,
+        //     'role'=>1,
+        //     'mobile'=>$req->usermobile,
+        //     'companyname'=>$req->companyname,
+        //     'companyid'=>$companyid,
+        //     'fullname'=>$req->uname,
+        //     'regdate'=>now(),
+        //     'reregistrationdate'=>now(),
+        //     'regendingdate'=>$regendingdate,
+        //     'plantype'=>$demodays[0]->id,
             
         
-        ]);
+        // ]);
+        try{
 
-        // dd($newuser);
+            DB::beginTransaction();
 
-        $createpayment=paymentdata::create([
-            'companyid'=>$companyid,
-            'uid'=>$newuser,
-            'amount'=>0,
-            'plan'=>$demodays[0]->id,
-            'regdate'=>now(),
-            'expdate'=>$regendingdate
-        ]);
+
+            $newuser=userlogin::insertGetId([
+                'email'=>$req->eamil,
+                'password'=>$req->password,
+                'role'=>1,
+                'mobile'=>$req->usermobile,
+                'companyname'=>$req->companyname,
+                'companyid'=>$companyid,
+                'fullname'=>$req->uname,
+                'regdate'=>now(),
+                'reregistrationdate'=>now(),
+                'regendingdate'=>$regendingdate,
+                'plantype'=>$demodays[0]->id,
+    
+            ]);
+          
+            
+            // dd($newuser);
+            $createpayment=paymentdata::create([
+                'companyid'=>$companyid,
+                'uid'=>$newuser,
+                'amount'=>0,
+                'plan'=>$demodays[0]->id,
+                'regdate'=>now(),
+                'expdate'=>$regendingdate
+            ]);
+    
+           DB::commit();
+    
+            
+          
+   
+            
+               
+            // return response()->json(['status'=> 'success', 'message'=> 'Admin']); 
+    
+            if($newuser){
+            $req->session()->put('uid', $newuser);
+            $req->session()->put('email', $req->eamil);
+            $req->session()->put('fullname', $req->uname);
+            $req->session()->put('role',1);
+            $req->session()->put('heading', $req->companyname);
+            $req->session()->put('expdate', $regendingdate);
+            $req->session()->put('cname', $req->companyname,);
+    
+            session()->put('scontactname', $contactno[0]->fullname);
+            session()->put('scontactnamemobileno', $contactno[0]->mobileno);
+    
+            $req->session()->put('cid', $companyid);
+            // $req->session()->put('logo', $heading[0]->logo);
+            // $req->session()->put('profilelogo', $check[0]->imagepath);
+                return response()->json(['status' => 'success', 'message' => 'User Created Successfully....!']);
+            }else{
+                return response()->json(['status' => 'failuer', 'message' => 'User Not Created Successfully....!']);
+            }
+
+        }catch(\Exception $e){
+            DB::rollBack();
+            return response()->json(['status' => 'failuer', 'message' => $e]);
+
+        }
 
        
-
-        
-      
-        
-        
-           
-        // return response()->json(['status'=> 'success', 'message'=> 'Admin']); 
-
-        if($newuser){
-        $req->session()->put('uid', $newuser);
-        $req->session()->put('email', $req->eamil);
-        $req->session()->put('fullname', $req->uname);
-        $req->session()->put('role',1);
-        $req->session()->put('heading', $req->companyname);
-        $req->session()->put('expdate', $regendingdate);
-        $req->session()->put('cname', $req->companyname,);
-
-        session()->put('scontactname', $contactno[0]->fullname);
-        session()->put('scontactnamemobileno', $contactno[0]->mobileno);
-
-        $req->session()->put('cid', $companyid);
-        // $req->session()->put('logo', $heading[0]->logo);
-        // $req->session()->put('profilelogo', $check[0]->imagepath);
-            return response()->json(['status' => 'success', 'message' => 'User Created Successfully....!']);
-        }else{
-            return response()->json(['status' => 'failuer', 'message' => 'User Not Created Successfully....!']);
-        }
         
     }
 }

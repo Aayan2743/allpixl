@@ -49,6 +49,11 @@
                         <!--<th class="min-w-150px">Company Name</th>-->
                         <th class="min-w-150px">Mail / Phone</th>
                         <th class="min-w-150px">Notes</th>
+
+                        @if(session()->get('role')==1)
+                        <th class="min-w-150px">Whoes</th>
+                        @endif
+
                         <th class="min-w-200px">Sheduled Date / Time</th>
                         {{-- <th class="min-w-150px">Status</th> --}}
                         <th class="min-w-150px">Action</th>
@@ -100,6 +105,21 @@
                                 </div>
                             </div>
                         </td>
+
+                        @if(session()->get('role')==1)
+                        <td class="align-content-center">
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex justify-content-start flex-column">
+                                    <p class="text-gray-900 fw-norma  fs-6" style="text-transform: capitalize">
+                                        {{$fups->teamnames}}
+                                        {{-- {{$fups->companyid}} --}}
+                                    
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+                        @endif
+
                         <td class="align-content-center">
                             <div class="d-flex  flex-shrink-0">
                                 <div class="d-flex flex-stack mb-2">

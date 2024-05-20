@@ -1,21 +1,92 @@
 <div>
     {{-- Nothing in the world is as soft and yielding as water. --}}
     <div class="col-md-4 col-4">
-      
-        {{-- <select name="dealcloseststus" wire:model="dealcloseststus"  wire:change="selectdealstatus($event.target.value)" class="form-control">
-            <option value="">Select Deal Status</option>
-            <option value="0">Inprogress</option>
-            <option value="1">Close</option>
-            <option value="2">Lost</option>
-            <option value="3">Re Open</option>
-        </select>
-        {{-- <button class="btn btn-info mb-3 leadid_inside" data-bs-target="#converttodeals"    data-bs-toggle="modal"   style="width:-webkit-fill-available;">Edit Deals Details </button> --}}
-       {{-- </div>
+        {{-- $dealstatus= --}}
+        @if(checkservice_deal_status($this->id)==3)
+             {{-- // in re open stage --}}
+        <div class="col-md-12 col-4">
+            <button class="btn btn-info mb-3" wire:click="closedeal({{$this->id}})";
+                style="width:-webkit-fill-available;"><i class="ki-duotone ki-notepad-edit">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </i><br>Close</button>
+        </div>
 
-       <div class="col-md-4 col-4">
-        <h5 >Your Deal Stage </h5>
-       </div> --}} 
-       {{-- <h1>{{$id}}</h1> --}}
+        <div class="col-md-12 col-4">
+            <button class="btn btn-info mb-3"  wire:click="lostdeal({{$this->id}})" 
+                style="width:-webkit-fill-available;"><i class="ki-duotone ki-notepad-edit">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </i><br>Lost</button>
+        </div>
+
+        @elseif(checkservice_deal_status($this->id)==2)
+        {{-- if lost --}}
+
+        <div class="col-md-12 col-4">
+            <button class="btn btn-info mb-3" wire:click="closedeal({{$this->id}})";
+                style="width:-webkit-fill-available;"><i class="ki-duotone ki-notepad-edit">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </i><br>Close</button>
+        </div>
+
+        <div class="col-md-12 col-4">
+            <button class="btn btn-info mb-3"  wire:click="reopendeal({{$this->id}})" 
+                style="width:-webkit-fill-available;"><i class="ki-duotone ki-notepad-edit">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </i><br>Reopen</button>
+        </div>
+
+
+        @elseif(checkservice_deal_status($this->id)==1)
+        {{-- if close --}}
+
+        <div class="col-md-12 col-4">
+            <button class="btn btn-info mb-3" wire:click="lostdeal({{$this->id}})";
+                style="width:-webkit-fill-available;"><i class="ki-duotone ki-notepad-edit">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </i><br>Lost</button>
+        </div>
+
+        <div class="col-md-12 col-4">
+            <button class="btn btn-info mb-3"  wire:click="reopendeal({{$this->id}})" 
+                style="width:-webkit-fill-available;"><i class="ki-duotone ki-notepad-edit">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </i><br>Reopen</button>
+        </div>
+
+
+        @elseif(checkservice_deal_status($this->id)==0)
+        {{-- if process --}}
+
+        <div class="col-md-12 col-4">
+            <button class="btn btn-info mb-3" wire:click="lostdeal({{$this->id}})";
+                style="width:-webkit-fill-available;"><i class="ki-duotone ki-notepad-edit">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </i><br>Lost</button>
+        </div>
+
+        <div class="col-md-12 col-4">
+            <button class="btn btn-info mb-3"  wire:click="closedeal({{$this->id}})" 
+                style="width:-webkit-fill-available;"><i class="ki-duotone ki-notepad-edit">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </i><br>Close</button>
+        </div>
+
+
+
+
+        @endif
+       
+
+      
+      
 
 </div>
 

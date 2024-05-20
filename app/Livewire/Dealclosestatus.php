@@ -15,11 +15,17 @@ class Dealclosestatus extends Component
     public $ids;
     public $leadstagetext;
     public $dealcloseststus;
-    public function mount($id){
-            $this->id=$id;
+    public $dealstatus;
 
-            // $this->dealcloseststus=leads::select('dealstatus')->where('leadid',$this->id)->get();   
+
+    public function mount($id){
+             $this->id=$id;
+            //         // dd($id);
+
+            //  $this->dealcloseststus=leads::select('dealstatus')->where('leadid',$this->id)->get();   
             
+            //  $this->dealstatus=$this->dealcloseststus[0]->dealstatus;
+            //  dd($this->dealcloseststus[0]->dealstatus);
             // $this->dealcloseststus=$id;
         // $update=leads::where()
         //    $this->tetx=leads::select('dealstatus')->where('leadid',$this->id)->get();
@@ -27,26 +33,92 @@ class Dealclosestatus extends Component
     }
 
 
-    public function selectdealstatus($va){
-        // dd($va);
+    
 
-        $update=leads::where('leadid',$this->id)->update([
-            'dealstatus'=>$va
+    public function closedeal($id){
+        // dd($id);
+
+        $dealamount=checkservice_deal_payment($id);
+
+
+        if($dealamount['bal_amount']<=0){
+
+            $closedealstatus=leads::where('leadid',$id)->update([
+                'dealstatus'=>1
+            ]);
+    
+              $this->dispatch('alert12',
+              icon: 'success',
+              title: 'Deal Closed Successfully....!',
+                );  
+
+        }else{
+
+          
+    
+              $this->dispatch('alert12',
+              icon: 'success',
+              title: 'Deal Cant Close Becaue of Balance Payment Pending....!',
+                );  
+
+        }
+
+
+        // dd($dealamount['bal_amount']);
+
+        
+       
+
+            
+    
+
+
+    }
+
+
+    public function lostdeal($id){
+        // dd($id);
+
+        $closedealstatus=leads::where('leadid',$id)->update([
+            'dealstatus'=>2
         ]);
 
-        $this->dealcloseststus=$va;
-        // dd($update);
-        if($update==1){
-            $this->dispatch('alert',
-            icon: 'success',   
-            title:"Deal Status Changed Successfully...!",
-            );
-        }
+          $this->dispatch('alert12',
+          icon: 'success',
+          title: 'Deal Lost....!',
+            );  
+
+            
+    
+
+
     }
 
-    public function updatedealcloseststus(){
-       //  $this->id= dealcloseststus;
+    
+    public function reopendeal($id){
+        // dd($id);
+
+        $closedealstatus=leads::where('leadid',$id)->update([
+            'dealstatus'=>3
+        ]);
+
+          $this->dispatch('alert12',
+          icon: 'success',
+          title: 'Deal Re opened Successfully....!',
+            );  
+
+            
+    
+
+
     }
+
+    
+
+
+    
+
+
 
     public function render()
     {

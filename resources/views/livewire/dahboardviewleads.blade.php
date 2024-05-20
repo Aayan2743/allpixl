@@ -184,16 +184,46 @@
                                         
                                             <p class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                               
+              
+                                                   @if(checkservice_user_access(Session()->get('uid'))['edit_access']==0) 
 
-                                                <a  wire:click="editLead({{$leads->leadid}})"  data-bs-toggle="modal"
-                                                    data-bs-target="#editleads" >
-                                                    <img src="{{asset('icons/Edit.png')}}" alt="image" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Edit"/>
-                                                    {{-- <i class="ki-duotone ki-pencil fs-2"><span
-                                                            class="path1"></span><span class="path2"></span></i> --}}
-                                                </a>
+                                                    <a  wire:click="editLead({{$leads->leadid}})"  data-bs-toggle="modal"
+                                                        data-bs-target="#access_controller" >
+                                                        <img src="{{asset('icons/Edit.png')}}" alt="image" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Edit"/>
+                                                        {{-- <i class="ki-duotone ki-pencil fs-2"><span
+                                                                class="path1"></span><span class="path2"></span></i> --}}
+                                                    </a>
+
+                                                    @elseif(checkservice_user_access(Session()->get('uid'))['edit_access']==1)
+
+                                                    <a  wire:click="editLead({{$leads->leadid}})"  data-bs-toggle="modal"
+                                                        data-bs-target="#editleads" >
+                                                        <img src="{{asset('icons/Edit.png')}}" alt="image" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Edit"/>
+                                                        {{-- <i class="ki-duotone ki-pencil fs-2"><span
+                                                                class="path1"></span><span class="path2"></span></i> --}}
+                                                    </a>
+                                                   @endif
+
+                                             
 
                                             </p>
                                             <p class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+
+
+                                                @if(checkservice_user_access(Session()->get('uid'))['delete_access']==0) 
+
+                                                <a wire:click="editLead({{$leads->leadid}})" 
+                                                    data-bs-toggle="modal" data-bs-target="#access_controller">
+
+                                                    <img src="{{asset('icons/delete.png')}}" alt="image" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Delete"/>
+                                                    {{-- <i class="ki-duotone ki-trash fs-2"><span class="path1"></span><span
+                                                            class="path2"></span><span class="path3"></span><span
+                                                            class="path4"></span><span class="path5"></span></i> --}}
+                                                </a>
+
+
+                                                @elseif(checkservice_user_access(Session()->get('uid'))['delete_access']==1)
+                                              
                                                 <a wire:click="editLead({{$leads->leadid}})" 
                                                     data-bs-toggle="modal" data-bs-target="#deleteleads">
 
@@ -202,6 +232,13 @@
                                                             class="path2"></span><span class="path3"></span><span
                                                             class="path4"></span><span class="path5"></span></i> --}}
                                                 </a>
+
+
+                                                 @endif
+
+                                               
+
+                                                
                                             </p>
                                         </div>
                                     </td>

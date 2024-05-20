@@ -79,9 +79,19 @@
                                             @else
                                             <img src=" {{ asset('storage/'.$leadsource->imagepath) }}" height="50px" width="50"  alt="nodvgdfgvfdgvdfg image"/>
                                             @endif
-                                            
-                                            <input class="form-control"  wire:model="leadsources_image" 
+                                           
+
+                                            <form wire:submit.prevent="save">
+                                                <input class="form-control"  wire:model="leadsources_image1" 
                                             type="file" />
+                                             
+                                                @error('photo') <span class="error">{{ $leadsources_image1 }}</span> @enderror
+                                             
+                                                <button type="submit">Save Photo</button>
+                                            </form>
+
+                                            
+                                          
                                             
                                         </div>
                                     </div>

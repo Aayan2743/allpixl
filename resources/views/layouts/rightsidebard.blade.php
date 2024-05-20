@@ -27,42 +27,155 @@
                                         <div
                                             class="sidebar-border-dashed d-flex flex-column justify-content-center rounded p-3 p-xxl-5">
                                             @if(last(request()->segments())=="dashboard")
-                                            <a href="" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friendsdddd_1">
-                                                <div class=" fs-6 fw-bold text-white text-center">Add Leads
-                                                </div>
-                                            </a>
+
+                                       
+
+                                                @if(checkservice_status())
+                                                <a href="" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friendsdddd_1">
+                                                    <div class=" fs-6 fw-bold text-white text-center">Add Leads
+                                                    </div>
+                                                </a>
+                                                @else
+
+                                                <a href="" data-bs-toggle="modal" data-bs-target="#errormessage">
+                                                    <div class=" fs-6 fw-bold text-white text-center">Add Leads
+                                                    </div>
+                                                </a>
+
+                                                @endif
+
+
                                           
                             
                                             @elseif(last(request()->segments())=="followups")
+
+
+                                                
+                                            @if(checkservice_status())
                                             <a href="" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
                                                 <div class=" fs-6 fw-bold text-white text-center">Add Leads
                                                 </div>
                                             </a>
+                                            @else
+
+                                            <a href="" data-bs-toggle="modal" data-bs-target="#errormessage">
+                                                <div class=" fs-6 fw-bold text-white text-center">Add Leads
+                                                </div>
+                                            </a>
+
+                                            @endif
+
+
+                                         
+
+
                                             @elseif(last(request()->segments())=="leads")
+
+                                            @if(checkservice_status())
                                             <a href="" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
                                                 <div class=" fs-6 fw-bold text-white text-center">Add Leads
                                                 </div>
                                             </a>
+                                            @else
+
+                                            <a href="" data-bs-toggle="modal" data-bs-target="#errormessage">
+                                                <div class=" fs-6 fw-bold text-white text-center">Add Leads
+                                                </div>
+                                            </a>
+
+                                            @endif
+
+
+
+
+
+                                         
                                             @elseif(last(request()->segments())=="viewdeals")
+
+                                            @if(checkservice_status())
                                             <a href="" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
                                                 <div class=" fs-6 fw-bold text-white text-center">Add Leads
                                                 </div>
                                             </a>
+                                            @else
+
+                                            <a href="" data-bs-toggle="modal" data-bs-target="#errormessage">
+                                                <div class=" fs-6 fw-bold text-white text-center">Add Leads
+                                                </div>
+                                            </a>
+
+                                            @endif
+
+
+                                            {{-- <a href="" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
+                                                <div class=" fs-6 fw-bold text-white text-center">Add Leads
+                                                </div>
+                                            </a> --}}
                                             @elseif(last(request()->segments())=="liststaff")
+
+                                            @if(checkservice_status())
                                             <a href="" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
                                                 <div class=" fs-6 fw-bold text-white text-center">Add Leads
                                                 </div>
                                             </a>
+                                            @else
+
+                                            <a href="" data-bs-toggle="modal" data-bs-target="#errormessage">
+                                                <div class=" fs-6 fw-bold text-white text-center">Add Leads
+                                                </div>
+                                            </a>
+
+                                            @endif
+
+
+
+                                            {{-- <a href="" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
+                                                <div class=" fs-6 fw-bold text-white text-center">Add Leads
+                                                </div>
+                                            </a> --}}
                                             @elseif(last(request()->segments())=="settings")
+
+                                            @if(checkservice_status())
                                             <a href="" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
                                                 <div class=" fs-6 fw-bold text-white text-center">Add Leads
                                                 </div>
                                             </a>
+                                            @else
+
+                                            <a href="" data-bs-toggle="modal" data-bs-target="#errormessage">
+                                                <div class=" fs-6 fw-bold text-white text-center">Add Leads
+                                                </div>
+                                            </a>
+
+                                            @endif
+
+
+                                            {{-- <a href="" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
+                                                <div class=" fs-6 fw-bold text-white text-center">Add Leads
+                                                </div>
+                                            </a> --}}
                                             @elseif(last(request()->segments())=="profile")
+
+                                            @if(checkservice_status())
                                             <a href="" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
                                                 <div class=" fs-6 fw-bold text-white text-center">Add Leads
                                                 </div>
                                             </a>
+                                            @else
+
+                                            <a href="" data-bs-toggle="modal" data-bs-target="#errormessage">
+                                                <div class=" fs-6 fw-bold text-white text-center">Add Leads
+                                                </div>
+                                            </a>
+
+                                            @endif
+
+
+
+                                            {{-- <a href="" data-bs-toggle="modal" data-bs-target="#kt_modal_invite_friends">
+                                                <div class=" fs-6 fw-bold text-white text-center">Add Leads
+                                                </div>
+                                            </a> --}}
                                             @else
                                             <a href="{{route('admin.leads')}}">
                                                 <div class=" fs-6 fw-bold text-white text-center">Back To Leads

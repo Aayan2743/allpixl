@@ -12,7 +12,8 @@ class Leadsource extends Component
     protected $paginationTheme = 'bootstrap';
     public $leadsources;
     public $imagePath;
-    public $leadsources_image;
+    public $leadsources_image;   
+    public $leadsources_image1="";
 
     public $editid;
 
@@ -29,17 +30,18 @@ class Leadsource extends Component
     }
 
     public function updatePost($id){
-        
+        //  dd($id);
+
+        // $this->reset(['leadsources','leadsources_image']);
+
         $this->validate([
             'leadsources_image' => 'nullable|image|mimes:jpeg,png|max:1024', // 1MB Max
+            // 'leadsources_image1' => 'image|mimes:jpeg,png|max:1024', // 1MB Max
             'leadsources' => 'required', // 1MB Max
         ]);
         // $this->leadsources_image->store('photos','public');
         if($this->leadsources_image){
             $imagePath = $this->leadsources_image->store('photos', 'public');
-           
-           
-
               $updatedata=leadsourcedata::where('lsid',$id)->where('companyid',session()->get('cid'))->update([
              'leadsource'=>$this->leadsources,
              'imagepath'=>$imagePath,
@@ -52,7 +54,7 @@ class Leadsource extends Component
              }else{
 
                 $this->dispatch('leadsoursecreate-alert',
-            title:'<p>Nothing Updated...!</p>');  
+                 title:'<p>Nothing Updated...!</p>');  
                 
              }
 

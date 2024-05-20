@@ -25,11 +25,35 @@
                 <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
                     data-bs-original-title="Click to Show All " data-kt-initialized="1">
                     @if(session()->get('role')==1)
+
+                    @if(checkservice_status())
                     <a href="#" wire:click="cancel"
-                        class="btn btn-sm btn-light btn-active-primary btn-secondary btn-outline" data-bs-toggle="modal"
-                        data-bs-target="#modal_add_staff">
-                        <i class="ki-duotone ki-plus fs-2"></i>Add Staff</a>
-                        @endif
+                    class="btn btn-sm btn-light btn-active-primary btn-secondary btn-outline" data-bs-toggle="modal"
+                    data-bs-target="#modal_add_staff">
+                    <i class="ki-duotone ki-plus fs-2"></i>Add Staff</a>
+
+
+                    <a href="#" wire:click="allaccess"
+                    class="btn btn-sm btn-light btn-active-primary btn-secondary btn-outline mx-3" data-bs-toggle="modal"
+                    data-bs-target="#modal_access_staff">
+                    <i class="ki-duotone ki-plus fs-2"></i>Staff Access</a>
+                    @else
+
+                    <a href="#" wire:click="cancel"
+                    class="btn btn-sm btn-light btn-active-primary btn-secondary btn-outline" data-bs-toggle="modal"
+                    data-bs-target="#errormessage">
+                    <i class="ki-duotone ki-plus fs-2"></i>Add Staff</a>
+
+                    {{-- <a href="" data-bs-toggle="modal" data-bs-target="#errormessage">
+                        <div class=" fs-6 fw-bold text-white text-center">Add Leads
+                        </div>
+                    </a> --}}
+
+                    @endif
+
+                   
+                    
+                    @endif
                 </div> 
             </li>
         </ul>
@@ -363,6 +387,76 @@
                                         </div>
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- --}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div wire:ignore.self class="modal fade" id="modal_access_staff" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-950px">
+            <div class="modal-content">
+                <div class="container-xxl" id="kt_content_container">
+                    <div class="card-header border-0 pt-2 mt-5">
+                        <h3 class="card-title align-items-start flex-column ">
+                            <span class="card-label fw-bold fs-3 mb-1 ">Add Access To Staff
+                            </span>
+                        </h3>
+                    </div>
+                    <div class="card-body py-3">
+                        <div class="table-responsive" style=" width: -webkit-fill-available;">
+                            <div class="container">
+                                <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4" id="tableaddstaff">
+                                    <thead>
+                                        <tr class="fw-bold text-muted">
+                                          
+                                          
+                                            <th class="min-w-150px">Staff Name</th>
+                                            <th class="min-w-150px">
+                                                Designation</th>
+                                            <th class="min-w-150px">
+                                                Email</th>
+                                              
+                                                <th class="min-w-150px">
+                                                    Actions</th>
+                                               
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($getempdetails as $l=> $emp)
+                                        <tr>
+                                         
+                                            <td class="align-content-center">
+                                                {{$emp->fullname}}
+                                            </td>
+                                            <td class="align-content-center">
+                                                {{$emp->designation}}
+                                            </td>
+                                            <td class="align-content-center">
+                                                {{$emp->email}}
+                                            </td>
+                                            <td class="align-content-center">
+                                                @if($emp->role==0)
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" wire:click="edit_access_handler({{$emp->uid}})" {{$emp->edit_access==1 ? 'checked':''}} >
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"  wire:click="delete_access_handler({{$emp->uid}})"  {{$emp->delete_access==1 ? 'checked':''}}>
+                                                
+                                                @endif
+                                                
+
+                                              
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+
                             </div>
                         </div>
                     </div>

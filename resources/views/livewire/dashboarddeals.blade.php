@@ -73,9 +73,12 @@
                                     <th>Lead Source</th>
                                     <th>Lead Owner</th>
                                     <th>Price</th>
-                                    <th>Lead Details </th>
+                                    <th>Deal Stage </th>
+
+                                    @if(session()->get('role')==1)
                                     <th style="text-align: center;">Action
                                     </th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -169,6 +172,8 @@
                                             </p>
                                         </div>
                                     </td>
+
+                                    @if(session()->get('role')==1)
                                     <td class="align-content-center">
                                         <div class="d-flex  flex-shrink-0">
                                             @if($deals->dealstatus==0)
@@ -236,6 +241,8 @@
                                             </a>
                                         </div>
                                     </td>
+                                    @endif
+
                                 </tr>
                                 @endforeach
                                 @else

@@ -19,11 +19,91 @@ class Liststaffdetails extends Component
     public $empmobile;
     public $editid;
     public $password;
+    public $edit_Access;
+    public $allstaffaccess=[];
 
 
 
    
+    public function edit_access_handler($id){
 
+        $getdata=userlogin::where('uid',$id)->get();
+
+
+
+        $edit_accesss=$getdata[0]->edit_access;
+        
+        if($edit_accesss==1){
+            $updatedata=userlogin::where('uid',$id)->update([
+                'edit_access'=>0
+            ]);
+
+           
+
+            $this->dispatch('alert',
+            title:'Edit Access Removed...!' );
+        }else{
+
+            $updatedata=userlogin::where('uid',$id)->update([
+                'edit_access'=>1
+            ]);
+
+           
+
+            $this->dispatch('alert',
+            title:'Edit Access Given...!' );
+
+        }
+     
+     
+        // $delete_access=$getdata[0]->edit_access;
+
+
+        // dd($getdata[0]->edit_access);
+        // dd($getdata[0]->delete_access);
+
+        // dd($id);
+    }
+    
+    public function delete_access_handler($id){
+
+        $getdata=userlogin::where('uid',$id)->get();
+
+        
+
+        $delete_access=$getdata[0]->delete_access;
+        
+        if($delete_access==1){
+            $updatedata=userlogin::where('uid',$id)->update([
+                'delete_access'=>0
+            ]);
+
+           
+
+            $this->dispatch('alert',
+            title:'Delete Access Removed...!' );
+        }else{
+
+            $updatedata=userlogin::where('uid',$id)->update([
+                'delete_access'=>1
+            ]);
+
+           
+
+            $this->dispatch('alert',
+            title:'Delete Access Given...!' );
+
+        }
+     
+     
+        // $delete_access=$getdata[0]->edit_access;
+
+
+        // dd($getdata[0]->edit_access);
+        // dd($getdata[0]->delete_access);
+
+        // dd($id);
+    }
 
     public function create_new_employee(){
 
@@ -58,6 +138,8 @@ class Liststaffdetails extends Component
                 'designation'=>$this->empdesignation,
                 'companyname'=>session()->get('cname'),
                 'companyid'=>session()->get('cid'),
+                'edit_access'=>0,
+                'delete_access'=>0,
               
             ]);
             if($createleadsourse){
@@ -71,6 +153,17 @@ class Liststaffdetails extends Component
                 $this->reset(['empemail','emppassword','empname','emprole','empmobile','empdesignation']);   
             }
 
+    }
+
+    public function allaccess(){
+
+        // $this->reset(['empemail','emppassword','empname','emprole','empmobile','empdesignation','allstaffaccess']);   
+        // // $this->allstaffaccess="";
+
+
+        // $this->allstaffaccess=userlogin::where('companyid',session()->get('cid'))->get();
+        // dd($this->allstaffaccess);
+        
     }
 
     public function cancel(){
@@ -196,6 +289,8 @@ class Liststaffdetails extends Component
 
     public function render()
     {
+       
+
         $getempdetails = userlogin::orderBy('uid', 'desc')
         ->selectRaw('*,LEFT(fullname, 1) as fs')
         ->where('status',1)

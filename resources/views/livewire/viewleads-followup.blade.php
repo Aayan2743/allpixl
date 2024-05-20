@@ -216,8 +216,8 @@
                                              
                                                </div>
                                     </div>
-                                    {{-- <a href="{{route('admin.followups')}}" class="btn btn-sm btn-light"
-                                        >View</a> --}}
+                                    <a href="{{$sss->fid}}" wire:click="getfollowupdata({{$sss->fid}})" data-bs-target="#edit_follow_up"  data-bs-toggle="modal" class="btn btn-sm btn-light" >Edit</a>
+                                       
                                 </div>
                                 @endforeach
                                     @else
@@ -1973,6 +1973,109 @@
                                         </div>
                                         <div class="col-md-12 text-end">
                                             <button class="btn btn-primary mb-5"     id="addfollou">Add Follow
+                                                Up </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div wire:ignore.self class="modal fade" id="edit_follow_up" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-650px">
+            <div class="modal-content">
+                <div class="container-xxl" id="kt_content_container">
+                    <div class="card-header border-0 pt-2">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label fw-bold fs-3 mb-1">Edit Follow-Up</span>
+                        </h3>
+                    </div>
+                    <div class="card-body py-3">
+                        <div class="hover-scroll-overlay-y pe-6 me-n6" style="height: 415px">
+                            <div class="table-responsive" style="width: -webkit-fill-available;">
+                                <div class="container">
+                                    <form wire:submit.prevent="updateFollowup" action="" method="post">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="dateInput" class="form-label">Follow up Date
+                                                *</label>
+                                                <input type="datetime-local" wire:model="nextfollowup"  class="form-control" id="nextfollowup" name="nextfollowup">
+                                                
+                                                @error('nextfollowup')
+                                                <div  style="color:red" id="u_nextfollowup">
+                                                    {{$message}}
+                                                </div>
+                                                    
+                                                @enderror
+                                                
+                                          
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="name" class="form-label">Select Lead
+                                            </label>
+                                            <select class="form-select" wire:model="leadname"
+                                                aria-label="Default select example">
+                                                <!-- <option selected="selected"></option> -->
+                                                @foreach ($getleads as $leads)
+                                                <option value="{{$leads->leadid}}">{{$leads->customer}}</option>
+                                                @endforeach
+                                                {{-- <option value="2">Sai kiran</option> --}}
+                                            </select>
+                                            <input type="hidden" class="form-control" id="leadidno" wire:model="leadidno" name="leadidno" value="{{$leadid}}" placeholder="Call Title">
+                                            <input type="hidden" class="form-control" id="customername" wire:model="customername" name="customername" value="{{$getleads[0]->customer}}" placeholder="Call Title">
+                                            <input type="hidden" class="form-control" id="orginazation" wire:model="orginazation" name="orginazation" value="{{$getleads[0]->ogrinazation}}" placeholder="Call Title">
+                                            <input type="hidden" class="form-control" id="phones" wire:model="phones" name="phones" value="{{$getleads[0]->phone}}" placeholder="Call Title">
+                                            <input type="hidden" class="form-control" id="emailss" wire:model="emailss" name="emailss" value="{{$getleads[0]->email}}" placeholder="Call Title">
+                                            <input type="hidden" class="form-control" id="project" wire:model="project" name="project" value="{{$getleads[0]->title}}" placeholder="Call Title">
+                                            <input type="hidden" class="form-control" id="teamid" wire:model="teamid" name="project" value="{{$getleads[0]->leadownerid }}" placeholder="Call ownerid">
+                                            <input type="hidden" class="form-control" id="teamname" wire:model="teamname" name="project" value="{{$getleads[0]->owner }}" placeholder="Call ownerid">
+                                            <div  style="color:red" id="u_follouptype">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="name" class="form-label">Type
+                                            </label>
+                                            <select class="form-select"
+                                                aria-label="Default select example" wire:model="follouptype" id="follouptype">
+                                                <option value="">Select Type of Followup</option>
+                                              
+                                                @foreach ($getfollowuptype as $fitem)
+                                                <option value="{{$fitem->ftype}}">{{$fitem->ftype}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('follouptype')
+                                            <div  style="color:red" id="u_nextfollowup">
+                                                {{$message}}
+                                            </div>
+                                                
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-12 mt=3 mb-4">
+                                            <label for="name" class="form-label mt-3">Remarks
+                                            </label>
+                                            <div class="form-floating">
+                                                <textarea class="form-control mb-5" wire:model="followupnotes"
+                                                    placeholder="Leave a comment here"
+                                                    id="followupnotes"
+                                                    name="followupnotes"
+                                                    style="height: 150px;"></textarea>
+                                            </div>
+                                            @error('followupnotes')
+                                            <div  style="color:red" id="u_nextfollowup">
+                                                {{$message}}
+                                            </div>
+                                                
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-12 text-end">
+                                            <button class="btn btn-primary mb-5"     id="addfollou">Update Follow
                                                 Up </button>
                                         </div>
                                     </div>

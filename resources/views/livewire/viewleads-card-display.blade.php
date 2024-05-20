@@ -55,13 +55,34 @@
             
             
               <div class="col-md-6 col-12 mt-3 ">
+
+                @if(checkservice_user_access(Session()->get('uid'))['edit_access']==0) 
+                <button class="btn btn-info mb-3 " data-bs-target="#access_controller"
+                data-bs-toggle="modal" wire:click="editLead({{$getleads[0]->leadid}})"
+                style="width:-webkit-fill-available;"><i
+                   class="ki-duotone ki-notepad-edit">
+                   <span class="path1"></span>
+                   <span class="path2"></span>
+               </i><br>Edit To<br> Lead </button>
+
+
+                @elseif(checkservice_user_access(Session()->get('uid'))['edit_access']==1)
+
                 <button class="btn btn-info mb-3 " data-bs-target="#editleadss"
-                     data-bs-toggle="modal" wire:click="editLead({{$getleads[0]->leadid}})"
-                     style="width:-webkit-fill-available;"><i
-                        class="ki-duotone ki-notepad-edit">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                    </i><br>Edit To<br> Lead </button>
+                data-bs-toggle="modal" wire:click="editLead({{$getleads[0]->leadid}})"
+                style="width:-webkit-fill-available;"><i
+                   class="ki-duotone ki-notepad-edit">
+                   <span class="path1"></span>
+                   <span class="path2"></span>
+               </i><br>Edit To<br> Lead </button>
+              
+                 @endif
+
+
+
+              
+
+
             </div>
             
         </div>
