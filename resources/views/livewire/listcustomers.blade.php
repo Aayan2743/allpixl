@@ -167,6 +167,8 @@
                                         <a href="#" class="btn btn-primary mx-3" wire:click="like({{$item->uid}})" data-bs-toggle="modal" "
                                             data-bs-target="#DeleteUser">
                                             X </a>
+
+                                           
                                 </div>
                             </div>
                         </td>

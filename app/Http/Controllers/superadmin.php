@@ -28,6 +28,18 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 class superadmin extends Controller
 {
+
+
+    public function mybillings(){
+
+        $currentTime = now(); // Get current time using Laravel's helper function
+        $greeting = $this->getGreetingMessage($currentTime->format('H:i:s'));
+          $quation = $this->quat();   
+
+        return view('mybilling',compact('greeting','quation'));
+
+    }
+
     public function getleaddatass(){
         dd("sgdjfgkd");
     }

@@ -123,6 +123,7 @@ Route::group(["prefix" => "/dashboard","middleware"=> ["checklogin"]], function 
     Route::any('/logout',[superadmin::class,'logout'])->name('admin.logout');
     Route::any('/updatedeals',[superadmin::class,'updatedeals'])->name('admin.updatedeals');
     Route::any('/liststaff',[superadmin::class,'liststaff'])->name('admin.liststaff');
+    Route::any('/my-billing',[superadmin::class,'mybillings'])->name('admin.mybillings');
     Route::any('/addstaff',[superadmin::class,'addstaff'])->name('admin.addstaff');
     Route::any('/getstaffbyid',[superadmin::class,'getstaffbyid'])->name('admin.getstaffbyid');
     Route::any('/updatestaff',[superadmin::class,'updatestaff'])->name('admin.updatestaff');

@@ -1915,7 +1915,7 @@
                                           
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="name" class="form-label">Select Lead
+                                            <label for="name" class="form-label">Select Lead *
                                             </label>
                                             <select class="form-select" wire:model="leadname"
                                                 aria-label="Default select example">
@@ -1937,7 +1937,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <label for="name" class="form-label">Type
+                                            <label for="name" class="form-label">Type *
                                             </label>
                                             <select class="form-select"
                                                 aria-label="Default select example" wire:model="follouptype" id="follouptype">
@@ -1955,7 +1955,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-md-12 mt=3 mb-4">
-                                            <label for="name" class="form-label mt-3">Remarks
+                                            <label for="name" class="form-label mt-3">Remarks *
                                             </label>
                                             <div class="form-floating">
                                                 <textarea class="form-control mb-5" wire:model="followupnotes"

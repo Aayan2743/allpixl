@@ -16,6 +16,8 @@
                             <div>
                                
                                 @livewire('dateandtime')
+
+                                {{checkservice_user_experied_status(session()->get('cid'))}}
                             </div>
                             <div class="card-header align-items-center border-0">
                                 <h3 class="card-title fw-bold text-white fs-3">Dashboard</h3>

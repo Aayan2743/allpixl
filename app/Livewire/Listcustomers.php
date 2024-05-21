@@ -292,12 +292,12 @@ class Listcustomers extends Component
 
             
 
-            $all=userlogin::where('expstatus',0)->paginate(5);
+            $all=userlogin::where('expstatus',0)->where('role',1)->paginate(5);
             $plans=plandetails::get();
            return view('livewire.listcustomers',compact('all','plans'));
 
         }else{
-            $all=userlogin::where('status',1)->paginate(5);
+            $all=userlogin::where('status',1)->where('role',1)->paginate(5);
             $plans=plandetails::get();
            return view('livewire.listcustomers',compact('all','plans'));
 

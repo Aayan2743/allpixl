@@ -35,8 +35,9 @@ class ViewleadsFollowup extends Component
     }
 
     public function getfollowupdata($fid){
-        //  dd($fid);
+        // dd($fid);
         $this->followid=$fid;
+        $this->reset(['nextfollowup','followupnotes','follouptype']);
         $getdata=folloups::where('fid',$fid)->get();
         // dd($getdata);
 
@@ -90,6 +91,12 @@ class ViewleadsFollowup extends Component
 
     public function addNewFollowup(){
        
+        $getemailstatus=leads::where('leadid',$this->leadidno)->pluck('email');
+        $getcallstatus=leads::where('leadid',$this->leadidno)->pluck('phone');
+        //  dd($getcallstatus[0]);
+        
+     //   dd($this->follouptype);
+
         $this->validate([
             'leadidno'=>'required', //ok
             'follouptype'=>'required', //ok
@@ -104,29 +111,115 @@ class ViewleadsFollowup extends Component
              
             
             ]);
-            
-            $followupdata=folloups::create([
-                'leadid'=>$this->leadidno,
-                'typeoffollowup'=>$this->follouptype,
-                'nextfollowup'=>$this->nextfollowup,
-                'customername'=>$this->customername,
-                'phone'=>$this->phones,
-                'email'=>$this->emailss,
-                'project'=>$this->project,
-                'companyname'=>$this->orginazation,
-                'followupnotes'=>$this->followupnotes,
-                'teamid'=>$this->teamid,
-                'teamnames'=>$this->teamname,
-                'companyid'=>session()->get('cid'),
-            ]);
-            // dd($followupdata);
 
-            if($followupdata){
-                $this->dispatch('alert',
-                icon: 'success',
-                title: 'New Followup Added...!',  
-            );
+
+            if($this->follouptype=="Email"){
+
+
+                if($getemailstatus[0]==null){
+                    $this->dispatch('alert',
+                    icon: 'error',
+                    title: 'Email id not available for this user...!',  
+                );
+    
+                }else{
+    
+             
+               
+                $followupdata=folloups::create([
+                    'leadid'=>$this->leadidno,
+                    'typeoffollowup'=>$this->follouptype,
+                    'nextfollowup'=>$this->nextfollowup,
+                    'customername'=>$this->customername,
+                    'phone'=>$this->phones,
+                    'email'=>$this->emailss,
+                    'project'=>$this->project,
+                    'companyname'=>$this->orginazation,
+                    'followupnotes'=>$this->followupnotes,
+                    'teamid'=>$this->teamid,
+                    'teamnames'=>$this->teamname,
+                    'companyid'=>session()->get('cid'),
+                ]);
+                // dd($followupdata);
+    
+                if($followupdata){
+                    $this->dispatch('alert',
+                    icon: 'success',
+                    title: 'New Followup Added...!',  
+                );
+                }
+    
+            } // else
+
+
+
             }
+            else if($this->follouptype=="Call"){
+
+                if($getcallstatus[0]==0 || $getcallstatus[0]==null ){
+                    $this->dispatch('alert',
+                    icon: 'error',
+                    title: 'Mobile Not Available not available for this user...!',  
+                );
+    
+                }else{
+    
+             
+               
+                $followupdata=folloups::create([
+                    'leadid'=>$this->leadidno,
+                    'typeoffollowup'=>$this->follouptype,
+                    'nextfollowup'=>$this->nextfollowup,
+                    'customername'=>$this->customername,
+                    'phone'=>$this->phones,
+                    'email'=>$this->emailss,
+                    'project'=>$this->project,
+                    'companyname'=>$this->orginazation,
+                    'followupnotes'=>$this->followupnotes,
+                    'teamid'=>$this->teamid,
+                    'teamnames'=>$this->teamname,
+                    'companyid'=>session()->get('cid'),
+                ]);
+                // dd($followupdata);
+    
+                if($followupdata){
+                    $this->dispatch('alert',
+                    icon: 'success',
+                    title: 'New Followup Added...!',  
+                );
+                }
+    
+            } // else
+
+            }
+            else{
+
+                $followupdata=folloups::create([
+                    'leadid'=>$this->leadidno,
+                    'typeoffollowup'=>$this->follouptype,
+                    'nextfollowup'=>$this->nextfollowup,
+                    'customername'=>$this->customername,
+                    'phone'=>$this->phones,
+                    'email'=>$this->emailss,
+                    'project'=>$this->project,
+                    'companyname'=>$this->orginazation,
+                    'followupnotes'=>$this->followupnotes,
+                    'teamid'=>$this->teamid,
+                    'teamnames'=>$this->teamname,
+                    'companyid'=>session()->get('cid'),
+                ]);
+                // dd($followupdata);
+    
+                if($followupdata){
+                    $this->dispatch('alert',
+                    icon: 'success',
+                    title: 'New Followup Added...!',  
+                );
+                }
+
+            }
+
+           
            
 
            

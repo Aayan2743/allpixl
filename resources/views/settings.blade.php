@@ -84,6 +84,25 @@
                                 <span class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
                             </a>
                         </li>
+
+                        <li class="nav-item mb-3 me-3 me-lg-6" role="presentation">
+                            <a class="nav-link btn btn-outline btn-flex btn-color-muted btn-active-color-primary flex-column overflow-hidden w-120px h-100px pt-5 pb-2"
+                                id="kt_stats_widget_16_tab_link_6" data-bs-toggle="pill"
+                                href="#kt_stats_widget_16_tab_6" aria-selected="false" role="tab" tabindex="-1">
+                                <div class="nav-icon mb-3">
+                                    <img src="{{asset('icons/Whatsapp Settings.png')}}" />
+                                    {{-- <i class="ki-duotone ki-tablet fs-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span></i> --}}
+                                </div>
+                                <span class="nav-text text-gray-800 fw-bold fs-6 lh-1" style="text-wrap: nowrap;">
+                                    Billing Details
+                                </span>
+                                <span class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+                            </a>
+                        </li>
+
                     </ul>
                 </form>
             </div>
@@ -111,6 +130,11 @@
                 aria-labelledby="kt_stats_widget_16_tab_link_5">
                 @livewire('Whatappsettings')
             </div>
+
+            <div class="tab-pane fade" id="kt_stats_widget_16_tab_6" role="tabpanel"
+            aria-labelledby="kt_stats_widget_16_tab_link_5">
+            @livewire('mybillingdata')
+        </div>
         </div>
     </div>
 
@@ -671,4 +695,44 @@
         });
     })
 </script>
+
+@script
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    @script
+    window.addEventListener('payment:initiated', event => {
+
+        console.log(event.detail[0].amount);
+        var options = {
+            "key": event.detail[0].key,
+            "amount": event.detail[0].amount, // amount in the smallest currency unit
+            "currency": "INR",
+            "name": "Acme Corp",
+            "description": "Test Transaction",
+            "order_id": event.detail.orderId,
+            "handler": function (response){
+             
+                                Livewire.emit('paymentCallback', response);
+            },
+            "prefill": {
+                "name": "Gaurav Kumar",
+                "email": "gaurav.kumar@example.com",
+                "contact": "9440161007"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#F37254"
+            }
+        };
+
+        // console.log(options);
+        var rzp1 = new Razorpay(options);
+  
+        rzp1.open();
+    });
+   
+</script>
+@endscript
 @endsection
